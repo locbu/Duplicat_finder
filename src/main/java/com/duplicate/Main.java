@@ -28,6 +28,7 @@ public class Main {
                 .collect(Collectors.groupingBy(DuplicateItem::getHash));
     }
 
+    
     private static void print(Set<Map.Entry<String, List<DuplicateItem>>> items) {
         for (Map.Entry<String, List<DuplicateItem>> item : items) {
             System.out.println(" This files are fully duplicate ");
