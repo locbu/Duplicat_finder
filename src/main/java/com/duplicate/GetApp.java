@@ -61,6 +61,7 @@ public class GetApp {
             StringBuilder sb;
             if (onlyDuplicates.contains(mapVal.getValue())) {
                 MessageDigest md = MessageDigest.getInstance("MD5");
+
                 try {
                     FileInputStream getFile = new FileInputStream(mapVal.getKey());
                     byte[] dataBytes = new byte[1024];
