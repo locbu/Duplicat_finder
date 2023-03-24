@@ -61,6 +61,7 @@ public class GetApp {
             StringBuilder sb;
             if (onlyDuplicates.contains(mapVal.getValue())) {
                 MessageDigest md = MessageDigest.getInstance("MD5");
+<<<<<<< HEAD
                 try {
                     FileInputStream getFile = new FileInputStream(mapVal.getKey());
                     byte[] dataBytes = new byte[1024];
@@ -77,6 +78,20 @@ public class GetApp {
                 } catch (IOException e) {
                     System.out.println("Input Stream failed - " + e);
                 }
+=======
+                FileInputStream getFile = new FileInputStream(mapVal.getKey());
+                byte[] dataBytes = new byte[1024];
+                int nread;
+                while ((nread = getFile.read(dataBytes)) != -1) {
+                    md.update(dataBytes, 0, nread);
+                }
+                byte[] mdbytes = md.digest();
+                sb = new StringBuilder();
+                for (byte mdbyte : mdbytes) {
+                    sb.append(Integer.toString((mdbyte & 0xff) + 0x100, 16).substring(1));
+                }
+                result.put(mapVal.getKey(), sb.toString());
+>>>>>>> 38f23857a964beb1f2305af36510bd5ba0f50aa1
             }
         }
         return result;
