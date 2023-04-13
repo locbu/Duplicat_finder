@@ -12,6 +12,7 @@ public class Main {
         var duplicates = app.call(inputAbsolutePath());
         Set<Map.Entry<String, List<DuplicateItem>>> groupedItems = groupedByHash(duplicates).entrySet();
         print(groupedItems);
+
     }
 
     private static String inputAbsolutePath() {
