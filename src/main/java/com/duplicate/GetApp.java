@@ -16,9 +16,7 @@ import static java.nio.file.Path.of;
 public class GetApp {
 
     public Map<String, String> call(String path) throws NoSuchAlgorithmException, IOException {
-        Map<String, String> pathAndSize = findPathAndSize(path);
-        List<String> onlyDuplicates = findOnlyDuplicates(pathAndSize);
-        return prepareResults(pathAndSize, onlyDuplicates);
+        return prepareResults(findPathAndSize(path), findOnlyDuplicates(findPathAndSize(path)));
     }
 
     private Map<String, String> findPathAndSize(String path) {
@@ -43,6 +41,7 @@ public class GetApp {
     }
 
     private List<String> findOnlyDuplicates(Map<String, String> pathAndSize) {
+
         Set<String> allElements = new HashSet<>();
         List<String> onlyDuplicates = new ArrayList<>();
         for (String item : pathAndSize.values()) {
