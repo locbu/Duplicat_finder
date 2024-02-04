@@ -16,9 +16,8 @@ public class Main {
     }
 
     private static String inputAbsolutePath() {
-        Scanner scanner = new Scanner(System.in);
         System.out.print("Please enter the path (as a file system directory) to find a duplicate files - ");
-        return scanner.nextLine();
+        return new Scanner(System.in).nextLine();
     }
 
     private static Map<String, List<DuplicateItem>> groupedByHash(Map<String, String> items) {
