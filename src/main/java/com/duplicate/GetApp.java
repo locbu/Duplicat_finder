@@ -24,11 +24,8 @@ public class GetApp {
         try (Stream<Path> filePathStream = Files.walk(Paths.get(path))) {
             filePathStream.forEach(filePath -> {
                 if (Files.isRegularFile(filePath)) {
-                    Path file = of(String.valueOf(filePath));
-                    BasicFileAttributes attr;
                     try {
-                        attr = Files.readAttributes(file, BasicFileAttributes.class);
-                        pathAndSize.put(String.valueOf(filePath), String.valueOf(attr.size()));
+                        pathAndSize.put(String.valueOf(filePath), String.valueOf(Files.readAttributes(of(String.valueOf(filePath)), BasicFileAttributes.class).size()));
                     } catch (IOException e) {
                         System.out.println("File is not read - " + e);
                     }
