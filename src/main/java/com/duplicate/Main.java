@@ -8,11 +8,9 @@ import java.util.stream.Collectors;
 public class Main {
 
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
-        GetApp app = new GetApp();
-        var duplicates = app.call(inputAbsolutePath());
+        var duplicates = new GetApp().call(inputAbsolutePath());
         Set<Map.Entry<String, List<DuplicateItem>>> groupedItems = groupedByHash(duplicates).entrySet();
         print(groupedItems);
-
     }
 
     private static String inputAbsolutePath() {
