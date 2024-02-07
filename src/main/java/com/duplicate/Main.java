@@ -27,13 +27,11 @@ public class Main {
     }
 
     private static void print(Set<Map.Entry<String, List<DuplicateItem>>> items) {
-        for (Map.Entry<String, List<DuplicateItem>> item : items) {
-            System.out.println(" This files are fully duplicate ");
-            for (DuplicateItem duplicate : item.getValue()) {
-                System.out.println(duplicate.getPath());
-            }
+        items.forEach(entry -> {
+            System.out.println("This files are fully duplicate");
+            entry.getValue().forEach(duplicateItem -> System.out.println(duplicateItem.getPath()));
             System.out.println("---------------------");
-        }
+        });
     }
 }
 
