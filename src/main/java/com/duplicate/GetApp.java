@@ -38,8 +38,8 @@ public class GetApp {
     }
 
     private List<String> findOnlyDuplicates(Map<String, String> pathAndSize) {
-
-        Set<String> allElements = new HashSet<>();
+        Set<String> allElements;
+        allElements = new HashSet<>();
         List<String> onlyDuplicates = new ArrayList<>();
         for (String item : pathAndSize.values()) {
             if (allElements.contains(item)) {
