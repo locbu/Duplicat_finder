@@ -64,10 +64,10 @@ public class GetApp {
                     while ((nread = getFile.read(dataBytes)) != -1) {
                         md.update(dataBytes, 0, nread);
                     }
-                    byte[] mdbytes = md.digest();
+                    byte[] mdBytes = md.digest();
                     sb = new StringBuilder();
-                    for (byte mdbyte : mdbytes) {
-                        sb.append(Integer.toString((mdbyte & 0xff) + 0x100, 16).substring(1));
+                    for (byte mdByte : mdBytes) {
+                        sb.append(Integer.toString((mdByte & 0xff) + 0x100, 16).substring(1));
                     }
                     result.put(mapVal.getKey(), sb.toString());
                 } catch (IOException e) {
@@ -79,10 +79,10 @@ public class GetApp {
                 while ((nread = getFile.read(dataBytes)) != -1) {
                     md.update(dataBytes, 0, nread);
                 }
-                byte[] mdbytes = md.digest();
+                byte[] mdBytes = md.digest();
                 sb = new StringBuilder();
-                for (byte mdbyte : mdbytes) {
-                    sb.append(Integer.toString((mdbyte & 0xff) + 0x100, 16).substring(1));
+                for (byte mdByte : mdBytes) {
+                    sb.append(Integer.toString((mdByte & 0xff) + 0x100, 16).substring(1));
                 }
                 result.put(mapVal.getKey(), sb.toString());
             }
