@@ -3,6 +3,7 @@ package com.duplicate;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.StringReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -16,4 +17,12 @@ public class PartialDuplicates {
             throw new RuntimeException(e);
         }
     }
+
+
+    private void compareFiles(String file1, String file2){
+        StringBuilder stringBuilder = new StringBuilder();
+
+    }
+
+
 }
