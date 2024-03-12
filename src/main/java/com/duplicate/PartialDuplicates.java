@@ -1,14 +1,12 @@
 package com.duplicate;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.StringReader;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class PartialDuplicates {
     public String readTheTextFile(String path) {
@@ -63,5 +61,28 @@ public class PartialDuplicates {
         }
     }
 
+    public void filesSorting(File[] files) {
+        if (files != null) {
+            Arrays.sort(files, Comparator.comparingLong(File::length)
+                    .thenComparing((f1, f2) -> {
+                        String ext1 = getFileExtension(f1.getName());
+                        String ext2 = getFileExtension(f2.getName());
+                        return ext1.compareTo(ext2);
+                    }).thenComparing(File::getName));
+            for (File file : files) {
+                System.out.println(file.getName() + " | Size: " + file.length() + " bytes");
+            }
+        } else {
+            System.out.println("Directory is empty or does not exist.");
+        }
+    }
+
+    private static String getFileExtension(String fileName) {
+        int lastDotIndex = fileName.lastIndexOf('.');
+        if (lastDotIndex == -1) {
+            return "";
+        }
+        return fileName.substring(lastDotIndex + 1);
+    }
 
 }
