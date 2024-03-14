@@ -1,5 +1,8 @@
 package com.duplicate;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -89,5 +92,22 @@ public class GetApp {
         }
         return result;
     }
+
+    public boolean compareImages(String imageFile1, String imageFile2) throws IOException {
+        BufferedImage image1 = ImageIO.read(new File(imageFile1));
+        BufferedImage image2 = ImageIO.read(new File(imageFile2));
+        if (image1.getWidth() != image2.getWidth() || image1.getHeight() != image2.getHeight()) {
+            return false;
+        }
+        for (int y = 0; y < image1.getHeight(); y++) {
+            for (int x = 0; x < image1.getWidth(); x++) {
+                if (image1.getRGB(x, y) != image2.getRGB(x, y)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
 }
 
