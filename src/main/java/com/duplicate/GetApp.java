@@ -109,5 +109,16 @@ public class GetApp {
         return true;
     }
 
+    public boolean isPartialDuplicate(String text1, String text2) throws IOException {
+        int windowSize = 100;
+        for (int i = 0; i <= text2.length() - windowSize; i++) {
+            String substring = text2.substring(i, i + windowSize);
+            if (text1.contains(substring)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
 
