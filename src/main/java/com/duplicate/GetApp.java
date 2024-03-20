@@ -2,9 +2,7 @@ package com.duplicate;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -19,6 +17,7 @@ import static java.nio.file.Path.of;
 public class GetApp {
 
     public Map<String, String> call(String path) throws NoSuchAlgorithmException, IOException {
+
         return prepareResults(findPathAndSize(path), findOnlyDuplicates(findPathAndSize(path)));
     }
 
@@ -120,5 +119,18 @@ public class GetApp {
         return false;
     }
 
+    public Set<String> removeDuplicatesFromFiles(String[] filePaths) throws IOException {
+        Set<String> uniqueLines = new HashSet<>();
+        for (String filePath : filePaths) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    uniqueLines.add(line);
+                }
+            }
+        }
+
+        return uniqueLines;
+    }
 }
 
