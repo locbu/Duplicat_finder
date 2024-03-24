@@ -132,5 +132,25 @@ public class GetApp {
 
         return uniqueLines;
     }
+
+    static boolean binarySearch(String[] array, String target) {
+        int low = 0;
+        int high = array.length - 1;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            int compareResult = array[mid].compareTo(target);
+
+            if (compareResult == 0) {
+                return true;
+            } else if (compareResult < 0) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+        return false;
+    }
+
 }
 
