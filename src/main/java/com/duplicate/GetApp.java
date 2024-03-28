@@ -171,5 +171,24 @@ public class GetApp {
         return hexHash.toString();
     }
 
+    public static void removeLinesFromFile(File file, Set<String> linesToRemove) throws IOException {
+        List<String> lines = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(file.getPath()))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (!linesToRemove.contains(line)) {
+                    lines.add(line);
+                }
+            }
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file.getPath()))) {
+            for (String line : lines) {
+                writer.write(line);
+                writer.newLine();
+            }
+        }
+    }
+
 }
 
