@@ -7,6 +7,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Set;
 
 public class PartialDuplicates {
     public String readTheTextFile(String path) {
@@ -117,5 +119,13 @@ public class PartialDuplicates {
         return lcs.reverse().toString();
     }
 
+    public static Set<String> generateNGrams(String line, int n) {
+        Set<String> ngrams = new HashSet<>();
+        for (int i = 0; i <= line.length() - n; i++) {
+            String ngram = line.substring(i, i + n);
+            ngrams.add(ngram);
+        }
+        return ngrams;
+    }
 
 }
