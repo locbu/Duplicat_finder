@@ -128,4 +128,13 @@ public class PartialDuplicates {
         return ngrams;
     }
 
+    public static boolean isPartialMatch(String line1, String line2, int n) {
+        Set<String> ngrams1 = generateNGrams(line1, n);
+        Set<String> ngrams2 = generateNGrams(line2, n);
+
+        ngrams1.retainAll(ngrams2);
+
+        return (double) ngrams1.size() / Math.min(ngrams1.size(), ngrams2.size()) > 0.5;
+    }
+
 }
