@@ -5,10 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class PartialDuplicates {
     public String readTheTextFile(String path) {
@@ -44,7 +41,7 @@ public class PartialDuplicates {
         return hashValue.toString();
     }
 
-    public static boolean compareFilesByBytes(String filePath1, String filePath2) throws IOException {
+    public boolean compareFilesByBytes(String filePath1, String filePath2) throws IOException {
         try (FileInputStream fis1 = new FileInputStream(filePath1);
              FileInputStream fis2 = new FileInputStream(filePath2)) {
 
@@ -79,7 +76,7 @@ public class PartialDuplicates {
         }
     }
 
-    private static String getFileExtension(String fileName) {
+    private String getFileExtension(String fileName) {
         int lastDotIndex = fileName.lastIndexOf('.');
         if (lastDotIndex == -1) {
             return "";
@@ -87,7 +84,7 @@ public class PartialDuplicates {
         return fileName.substring(lastDotIndex + 1);
     }
 
-    public static String findLongestCommonSubsequence(String s1, String s2) {
+    public String findLongestCommonSubsequence(String s1, String s2) {
         int m = s1.length();
         int n = s2.length();
 
@@ -119,7 +116,7 @@ public class PartialDuplicates {
         return lcs.reverse().toString();
     }
 
-    public static Set<String> generateNGrams(String line, int n) {
+    public Set<String> generateNGrams(String line, int n) {
         Set<String> ngrams = new HashSet<>();
         for (int i = 0; i <= line.length() - n; i++) {
             String ngram = line.substring(i, i + n);
@@ -128,13 +125,24 @@ public class PartialDuplicates {
         return ngrams;
     }
 
-    public static boolean isPartialMatch(String line1, String line2, int n) {
+    public boolean isPartialMatch(String line1, String line2, int n) {
         Set<String> ngrams1 = generateNGrams(line1, n);
         Set<String> ngrams2 = generateNGrams(line2, n);
 
         ngrams1.retainAll(ngrams2);
 
         return (double) ngrams1.size() / Math.min(ngrams1.size(), ngrams2.size()) > 0.5;
+    }
+
+    public List<String> readLinesFromFile(String filePath) throws IOException {
+        List<String> lines = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                lines.add(line);
+            }
+        }
+        return lines;
     }
 
 }
