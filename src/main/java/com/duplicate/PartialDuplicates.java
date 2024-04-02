@@ -145,4 +145,43 @@ public class PartialDuplicates {
         return lines;
     }
 
+    public void removeLinesFromFile(File file, Set<String> linesToRemove) throws IOException {
+        List<String> lines = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(file.getPath()))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (!linesToRemove.contains(line)) {
+                    lines.add(line);
+                }
+            }
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file.getPath()))) {
+            for (String line : lines) {
+                writer.write(line);
+                writer.newLine();
+            }
+        }
+    }
+
+    public void removeDuplicates(File file1, File file2, int n) throws IOException {
+        List<String> lines1 = readLinesFromFile(file1.getPath());
+        List<String> lines2 = readLinesFromFile(file2.getPath());
+
+        Set<String> duplicates = new HashSet<>();
+
+        for (String line1 : lines1) {
+            for (String line2 : lines2) {
+                if (isPartialMatch(line1, line2, n)) {
+                    duplicates.add(line1);
+                    break;
+                }
+            }
+        }
+
+        removeLinesFromFile(file1, duplicates);
+        removeLinesFromFile(file2, duplicates);
+    }
+
+
 }
