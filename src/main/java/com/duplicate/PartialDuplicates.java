@@ -183,5 +183,13 @@ public class PartialDuplicates {
         removeLinesFromFile(file2, duplicates);
     }
 
+    public static int hashFunction(String line, int seed) {
+        int hash = 0;
+        for (char c : line.toCharArray()) {
+            hash = (seed * hash + c) % Integer.MAX_VALUE;
+        }
+        return hash;
+    }
+
 
 }
