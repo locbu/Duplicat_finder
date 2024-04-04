@@ -8,6 +8,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 public class PartialDuplicates {
+    public static final int NUM_HASH_FUNCTIONS = 100;
+
     public String readTheTextFile(String path) {
         try {
             String text = "";
@@ -191,5 +193,14 @@ public class PartialDuplicates {
         return hash;
     }
 
+    public double calculateJaccardSimilarity(int[] signature1, int[] signature2) {
+        int numMatches = 0;
+        for (int i = 0; i < NUM_HASH_FUNCTIONS; i++) {
+            if (signature1[i] == signature2[i]) {
+                numMatches++;
+            }
+        }
+        return (double) numMatches / NUM_HASH_FUNCTIONS;
+    }
 
 }
