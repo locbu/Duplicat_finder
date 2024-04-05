@@ -203,4 +203,17 @@ public class PartialDuplicates {
         return (double) numMatches / NUM_HASH_FUNCTIONS;
     }
 
+    public static int[] generateMinHashSignature(List<String> lines) {
+        int[] signature = new int[NUM_HASH_FUNCTIONS];
+        Arrays.fill(signature, Integer.MAX_VALUE);
+
+        for (String line : lines) {
+            for (int i = 0; i < NUM_HASH_FUNCTIONS; i++) {
+                int hashValue = hashFunction(line, i);
+                signature[i] = Math.min(signature[i], hashValue);
+            }
+        }
+        return signature;
+    }
+
 }
