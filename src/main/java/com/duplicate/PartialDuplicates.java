@@ -166,24 +166,24 @@ public class PartialDuplicates {
         }
     }
 
-    public void removeDuplicates(File file1, File file2, int n) throws IOException {
-        List<String> lines1 = readLinesFromFile(file1.getPath());
-        List<String> lines2 = readLinesFromFile(file2.getPath());
-
-        Set<String> duplicates = new HashSet<>();
-
-        for (String line1 : lines1) {
-            for (String line2 : lines2) {
-                if (isPartialMatch(line1, line2, n)) {
-                    duplicates.add(line1);
-                    break;
-                }
-            }
-        }
-
-        removeLinesFromFile(file1, duplicates);
-        removeLinesFromFile(file2, duplicates);
-    }
+//    public void removeDuplicates(File file1, File file2, int n) throws IOException {
+//        List<String> lines1 = readLinesFromFile(file1.getPath());
+//        List<String> lines2 = readLinesFromFile(file2.getPath());
+//
+//        Set<String> duplicates = new HashSet<>();
+//
+//        for (String line1 : lines1) {
+//            for (String line2 : lines2) {
+//                if (isPartialMatch(line1, line2, n)) {
+//                    duplicates.add(line1);
+//                    break;
+//                }
+//            }
+//        }
+//
+//        removeLinesFromFile(file1, duplicates);
+//        removeLinesFromFile(file2, duplicates);
+//    }
 
     public static int hashFunction(String line, int seed) {
         int hash = 0;
@@ -214,6 +214,26 @@ public class PartialDuplicates {
             }
         }
         return signature;
+    }
+
+    public void removeDuplicates(File file1, File file2) throws IOException {
+        List<String> lines1 = readLinesFromFile(file1.getPath());
+        List<String> lines2 = readLinesFromFile(file2.getPath());
+
+        int[] signature1 = generateMinHashSignature(lines1);
+        int[] signature2 = generateMinHashSignature(lines2);
+
+        Set<String> duplicates = new HashSet<>();
+
+        double similarity = calculateJaccardSimilarity(signature1, signature2);
+
+        if (similarity > 0.8) {
+            duplicates.addAll(lines1);
+            duplicates.addAll(lines2);
+        }
+
+        removeLinesFromFile(file1, duplicates);
+        removeLinesFromFile(file2, duplicates);
     }
 
 }
