@@ -236,4 +236,16 @@ public class PartialDuplicates {
         removeLinesFromFile(file2, duplicates);
     }
 
+    public static List<String> tokenize(String text) {
+        String[] words = text.split("\\s+");
+        List<String> tokens = new ArrayList<>();
+        for (String word : words) {
+            String token = word.replaceAll("[^a-zA-Z]", "").toLowerCase();
+            if (!token.isEmpty()) {
+                tokens.add(token);
+            }
+        }
+        return tokens;
+    }
+
 }
