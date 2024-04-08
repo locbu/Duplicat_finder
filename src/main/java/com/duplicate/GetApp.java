@@ -216,6 +216,26 @@ public class GetApp {
         return hashBuilder.toString();
     }
 
+    public static double calculateSimilarity(BufferedImage image1, BufferedImage image2) {
+        int width = Math.min(image1.getWidth(), image2.getWidth());
+        int height = Math.min(image1.getHeight(), image2.getHeight());
+
+        int numPixels = width * height;
+        int similarPixels = 0;
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                int rgb1 = image1.getRGB(x, y);
+                int rgb2 = image2.getRGB(x, y);
+
+                if (rgb1 == rgb2) {
+                    similarPixels++;
+                }
+            }
+        }
+        return (double) similarPixels / numPixels;
+    }
+
 
 }
 
