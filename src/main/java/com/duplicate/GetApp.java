@@ -171,23 +171,14 @@ public class GetApp {
         return hexHash.toString();
     }
 
-    public static void removeLinesFromFile(File file, Set<String> linesToRemove) throws IOException {
-        List<String> lines = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(file.getPath()))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                if (!linesToRemove.contains(line)) {
-                    lines.add(line);
-                }
+    public static int calculateHammingDistance(String hash1, String hash2) {
+        int distance = 0;
+        for (int i = 0; i < hash1.length(); i++) {
+            if (hash1.charAt(i) != hash2.charAt(i)) {
+                distance++;
             }
         }
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file.getPath()))) {
-            for (String line : lines) {
-                writer.write(line);
-                writer.newLine();
-            }
-        }
+        return distance;
     }
 
 }
