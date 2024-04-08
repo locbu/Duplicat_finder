@@ -1,6 +1,7 @@
 package com.duplicate;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.Files;
@@ -10,6 +11,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
+import java.util.List;
 import java.util.stream.Stream;
 
 import static java.nio.file.Path.of;
@@ -152,7 +154,7 @@ public class GetApp {
         return false;
     }
 
-    public static String calculateFileHash(String filePath) throws NoSuchAlgorithmException, IOException {
+    public String calculateFileHash(String filePath) throws NoSuchAlgorithmException, IOException {
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         try (InputStream inputStream = new FileInputStream(filePath)) {
             byte[] buffer = new byte[8192];
@@ -171,7 +173,7 @@ public class GetApp {
         return hexHash.toString();
     }
 
-    public static int calculateHammingDistance(String hash1, String hash2) {
+    public int calculateHammingDistance(String hash1, String hash2) {
         int distance = 0;
         for (int i = 0; i < hash1.length(); i++) {
             if (hash1.charAt(i) != hash2.charAt(i)) {
@@ -180,6 +182,40 @@ public class GetApp {
         }
         return distance;
     }
+
+    public String computeAverageHash(File imageFile) throws IOException {
+        BufferedImage image = ImageIO.read(imageFile);
+
+        Image resizedImage = image.getScaledInstance(8, 8, Image.SCALE_SMOOTH);
+        BufferedImage resizedBufferedImage = new BufferedImage(8, 8, BufferedImage.TYPE_BYTE_GRAY);
+
+        Graphics2D graphics = resizedBufferedImage.createGraphics();
+        graphics.drawImage(resizedImage, 0, 0, null);
+        graphics.dispose();
+
+        int averagePixelValue = 0;
+        for (int y = 0; y < 8; y++) {
+            for (int x = 0; x < 8; x++) {
+                averagePixelValue += resizedBufferedImage.getRGB(x, y) & 0xFF;
+            }
+        }
+        averagePixelValue /= 64;
+
+        StringBuilder hashBuilder = new StringBuilder();
+        for (int y = 0; y < 8; y++) {
+            for (int x = 0; x < 8; x++) {
+                int pixelValue = resizedBufferedImage.getRGB(x, y) & 0xFF;
+                if (pixelValue >= averagePixelValue) {
+                    hashBuilder.append("1");
+                } else {
+                    hashBuilder.append("0");
+                }
+            }
+        }
+
+        return hashBuilder.toString();
+    }
+
 
 }
 
