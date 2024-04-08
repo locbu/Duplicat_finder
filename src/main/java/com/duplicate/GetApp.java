@@ -216,7 +216,7 @@ public class GetApp {
         return hashBuilder.toString();
     }
 
-    public static double calculateSimilarity(BufferedImage image1, BufferedImage image2) {
+    public double calculateSimilarity(BufferedImage image1, BufferedImage image2) {
         int width = Math.min(image1.getWidth(), image2.getWidth());
         int height = Math.min(image1.getHeight(), image2.getHeight());
 
@@ -236,6 +236,14 @@ public class GetApp {
         return (double) similarPixels / numPixels;
     }
 
+    public BufferedImage loadImage(String path) {
+        try {
+            return ImageIO.read(new File(path));
+        } catch (IOException e) {
+            System.err.println("Error loading image: " + e.getMessage());
+            return null;
+        }
+    }
 
 }
 
