@@ -131,9 +131,9 @@ public class GetApp {
                 }
             }
         }
-
         return uniqueLines;
     }
+    //////////////////
 
     static boolean binarySearch(String[] array, String target) {
         int low = 0;
